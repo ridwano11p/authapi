@@ -3,12 +3,12 @@ import { ProductsContext } from "../context/ProductsContext";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 const AddProduct = () => {
-  const { addProduct, products } = useContext(ProductsContext);
+  const { addProduct } = useContext(ProductsContext);
   const [sku, setSku] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [isAvailable, setIsAvailable] = useState("");
+  const [isAvailable, setIsAvailable] = useState(false);
   const [categoryId, setCategoryId] = useState("");
   const [unit, setUnit] = useState("");
   const [manufacturer, setManufacturer] = useState("");
@@ -21,28 +21,22 @@ const AddProduct = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    const existingProduct = products.find((product) => product.sku === sku);
 
-    if (existingProduct) {
-      const updatedProduct = { ...existingProduct, name, description, price };
-      addProduct(updatedProduct);
-    } else {
-      const newProduct = { sku, name, description, price };
-      addProduct(newProduct);
-    }
-    setSku("");
+    const newProduct = { sku, name, description, price, isAvailable };
+    addProduct(newProduct);
+
     setName("");
     setDescription("");
     setPrice("");
+    setSku("");
     setIsAvailable("");
     setCategoryId("");
-    setUnit("");
-    setManufacturer("");
     setBrand("");
+    setManufacturer("");
     setSellingPrice("");
-    setPurchaseCost("");
     setTax("");
     setStocksOnHand("");
+    setUnit("");
     setReOrderLevel("");
     window.location.reload(); // reload page on successful add
   };
@@ -50,7 +44,7 @@ const AddProduct = () => {
   return (
     <Form onSubmit={handleFormSubmit}>
       <FormGroup>
-        <Label for="sku">Catagory Name:</Label>
+        <Label for="sku">SKU:</Label>
         <Input
           type="text"
           name="sku"
@@ -60,7 +54,7 @@ const AddProduct = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="name"> Product Name:</Label>
+        <Label for="name">Name:</Label>
         <Input
           type="text"
           name="name"
@@ -89,15 +83,17 @@ const AddProduct = () => {
           onChange={(event) => setPrice(event.target.value)}
         />
       </FormGroup>
-      <FormGroup>
-        <Label for="isAvailable">Is Available</Label>
-        <Input
-          type="checkbox"
-          name="isAvailable"
-          id="isAvailable"
-          checked={isAvailable}
-          onChange={(e) => setIsAvailable(e.target.checked)}
-        />
+      <FormGroup check>
+        <Label check>
+          <Input
+            type="checkbox"
+            name="isAvailable"
+            id="isAvailable"
+            checked={isAvailable}
+            onChange={(event) => setIsAvailable(event.target.checked)}
+          />{" "}
+          Is Available
+        </Label>
       </FormGroup>
       <FormGroup>
         <Label for="categoryId">Category ID</Label>
@@ -106,9 +102,10 @@ const AddProduct = () => {
           name="categoryId"
           id="categoryId"
           value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
+          onChange={(event) => setCategoryId(event.target.value)}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="unit">Unit</Label>
         <Input
@@ -116,9 +113,10 @@ const AddProduct = () => {
           name="unit"
           id="unit"
           value={unit}
-          onChange={(e) => setUnit(e.target.value)}
+          onChange={(event) => setUnit(event.target.value)}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="manufacturer">Manufacturer</Label>
         <Input
@@ -126,9 +124,10 @@ const AddProduct = () => {
           name="manufacturer"
           id="manufacturer"
           value={manufacturer}
-          onChange={(e) => setManufacturer(e.target.value)}
+          onChange={(event) => setManufacturer(event.target.value)}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="brand">Brand</Label>
         <Input
@@ -136,7 +135,7 @@ const AddProduct = () => {
           name="brand"
           id="brand"
           value={brand}
-          onChange={(e) => setBrand(e.target.value)}
+          onChange={(event) => setBrand(event.target.value)}
         />
       </FormGroup>
       <FormGroup>
@@ -146,9 +145,10 @@ const AddProduct = () => {
           name="sellingPrice"
           id="sellingPrice"
           value={sellingPrice}
-          onChange={(e) => setSellingPrice(e.target.value)}
+          onChange={(event) => setSellingPrice(event.target.value)}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="purchaseCost">Purchase Cost</Label>
         <Input
@@ -156,9 +156,10 @@ const AddProduct = () => {
           name="purchaseCost"
           id="purchaseCost"
           value={purchaseCost}
-          onChange={(e) => setPurchaseCost(e.target.value)}
+          onChange={(event) => setPurchaseCost(event.target.value)}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="tax">Tax</Label>
         <Input
@@ -166,19 +167,20 @@ const AddProduct = () => {
           name="tax"
           id="tax"
           value={tax}
-          onChange={(e) => setTax(e.target.value)}
+          onChange={(event) => setTax(event.target.value)}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="stocksOnHand">Stocks On Hand</Label>
+        <Label for="stocksOnHand">Stocks on Hand</Label>
         <Input
           type="number"
           name="stocksOnHand"
           id="stocksOnHand"
           value={stocksOnHand}
-          onChange={(e) => setStocksOnHand(e.target.value)}
+          onChange={(event) => setStocksOnHand(event.target.value)}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="reOrderLevel">Re-Order Level</Label>
         <Input
@@ -186,10 +188,9 @@ const AddProduct = () => {
           name="reOrderLevel"
           id="reOrderLevel"
           value={reOrderLevel}
-          onChange={(e) => setReOrderLevel(e.target.value)}
+          onChange={(event) => setReOrderLevel(event.target.value)}
         />
       </FormGroup>
-
       <Button color="primary" type="submit">
         Add Product
       </Button>

@@ -1,36 +1,74 @@
-/* just to keep in mind  for later. here are the api values that can be usedd for further coding usage in other components.
-  [{"id":1,"sku":"AWMGSJ","name":"Grunge Skater Jeans","description":"new arrival","price":68,"isAvailable":true,"categoryId":1,"unit":"Pcs","manufacturer":"ABC","brand":"EABC","sellingPrice":240.5,"purchaseCost":230.5,"tax":3.5,"stocksOnHand":20,"reOrderLevel":5}
- */
-
+// Import React and axios
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-export const ProductsContext = createContext();
+// Create a context object
+const ProductsContext = createContext();
 
-const ProductsContextProvider = ({ children }) => {
+// Create a custom provider component
+const ProductsProvider = ({ children }) => {
+  // Define the state for products
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("https://localhost:5001/api/products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.log(error));
-  }, [products]);
+  // Define the API URL
+  const apiUrl = "https://localhost:5001/api/products";
 
-  const addProduct = (newProduct) => {
-    axios
-      .post("https://localhost:5001/api/products", newProduct)
-      .then((response) => {
-        setProducts([...products, response.data]);
-      })
-      .catch((error) => console.log(error));
+  // Define a function to fetch products from the API
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(apiUrl);
+      setProducts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
+  // Define a function to add a product to the API
+  const addProduct = async (product) => {
+    try {
+      const response = await axios.post(apiUrl, product);
+      setProducts([...products, response.data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Define a function to update a product in the API
+  const updateProduct = async (id, product) => {
+    try {
+      const response = await axios.put(`${apiUrl}/${id}`, product);
+      setProducts(
+        products.map((p) => (p.id === id ? { ...p, ...response.data } : p))
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Define a function to delete a product from the API
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`${apiUrl}/${id}`);
+      setProducts(products.filter((p) => p.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Use useEffect hook to fetch products on initial render
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  // Return the provider component with the context value
   return (
-    <ProductsContext.Provider value={{ products, addProduct }}>
+    <ProductsContext.Provider
+      value={{ products, addProduct, updateProduct, deleteProduct }}
+    >
       {children}
     </ProductsContext.Provider>
   );
 };
 
-export default ProductsContextProvider;
+// Export the context and provider components
+export { ProductsContext, ProductsProvider };

@@ -6,18 +6,18 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import ProductsContextProvider from "./context/ProductsContext";
+import { ProductsProvider } from "./context/ProductsContext";
 
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
-  <ProductsContextProvider>
+  <ProductsProvider>
     <BrowserRouter basename={baseUrl}>
       <App />
     </BrowserRouter>
-  </ProductsContextProvider>
+  </ProductsProvider>
 );
 
 // If you want your app to work offline and load faster, you can change
