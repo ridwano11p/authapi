@@ -12,6 +12,9 @@
 .sidebar-and-navbar > * {
   margin-right: 15px;
 }
+.blue-navbar {
+  background-color:rgb(178, 224, 238);
+}
 
 
 .box-shadow {

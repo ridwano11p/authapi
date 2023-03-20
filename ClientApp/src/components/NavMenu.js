@@ -6,6 +6,10 @@ import {
   NavbarToggler,
   NavItem,
   NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoginMenu } from "./api-authorization/LoginMenu";
@@ -33,7 +37,7 @@ export class NavMenu extends Component {
     return (
       <header>
         <Navbar
-          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
+          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 blue-navbar"
           container
           light
         >
@@ -55,21 +59,69 @@ export class NavMenu extends Component {
                   Home
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/counter">
-                  Counter
-                </NavLink>
-              </NavItem>
+
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/productsorter">
                   Management
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/fetch-data">
-                  Fetch data
+                <NavLink tag={Link} className="text-dark" to="/contacts">
+                  Contacts
                 </NavLink>
               </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Items
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem tag={Link} to="/items">
+                    Items
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/composite-items">
+                    Composite Items
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/item-adjustments">
+                    Item Adjustments
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/transfer-orders">
+                    Transfer Orders
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/sales-orders">
+                  Sales Orders
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/packages">
+                  Packages
+                </NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  More Options
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem tag={Link} to="/invoices">
+                    Invoices
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/purchase-orders">
+                    Purchase Orders
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/bills">
+                    Bills
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/integrations">
+                    Integrations
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/reports">
+                    Reports
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
               <LoginMenu></LoginMenu>
             </ul>
           </Collapse>
