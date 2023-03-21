@@ -74,19 +74,6 @@ const EditProduct = (props) => {
     setReOrderLevel(event.target.value);
   };
 
-  const handleDeleteProduct = () => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      axios
-        .delete(`https://localhost:5001/api/products/${props.product.id}`)
-        .then(() => {
-          window.location.reload(); // reload page on successful delete
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
-
   const handleUpdateProduct = () => {
     const updatedProduct = {
       ...props.product,
@@ -118,6 +105,18 @@ const EditProduct = (props) => {
       });
   };
 
+  const handleDeleteProduct = () => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      axios
+        .delete(`https://localhost:5001/api/products/${props.product.id}`)
+        .then(() => {
+          window.location.reload(); // reload page on successful delete
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   return (
     <div>
       <h2>Edit Product</h2>
@@ -264,11 +263,11 @@ const EditProduct = (props) => {
             onChange={handleReOrderLevelChange}
           />
         </FormGroup>
-        <Button color="danger" onClick={handleDeleteProduct}>
-          Delete
-        </Button>
         <Button color="primary" onClick={handleUpdateProduct}>
           Update
+        </Button>
+        <Button color="danger" onClick={handleDeleteProduct}>
+          Delete
         </Button>
       </Form>
     </div>
