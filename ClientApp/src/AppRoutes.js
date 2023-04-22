@@ -16,7 +16,7 @@ const AppRoutes = [
   },
   {
     path: "/productsorter",
-
+    requireAuth: true,
     element: <Producsorter />,
   },
   {
