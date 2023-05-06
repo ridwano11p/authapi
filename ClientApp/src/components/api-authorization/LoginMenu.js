@@ -52,30 +52,29 @@ export class LoginMenu extends Component {
       );
     }
   }
-
   authenticatedView(userName, profilePath, logoutPath, logoutState) {
     return (
       <Fragment>
-        <NavItem>
-          <NavLink tag={Link} className="text-dark" to={profilePath}>
-            Hello {userName}
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            replace
-            tag={Link}
-            className="text-dark"
+        <div className="float-right flex items-center space-x-2 mr-7">
+          <img
+            src="https://via.placeholder.com/50"
+            alt="Profile"
+            className="w-12 h-12 border-2 border-blue-500 rounded-full"
+          />
+          <div>{userName}</div>
+        </div>
+        <div className="float-right">
+          <Link
             to={logoutPath}
+            className="inline-block px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
             state={logoutState}
           >
             Logout
-          </NavLink>
-        </NavItem>
+          </Link>
+        </div>
       </Fragment>
     );
   }
-
   anonymousView(registerPath, loginPath) {
     return (
       <Fragment>

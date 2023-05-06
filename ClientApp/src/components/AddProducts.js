@@ -22,7 +22,22 @@ const AddProduct = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const newProduct = { sku, name, description, price, isAvailable };
+    const newProduct = {
+      sku,
+      name,
+      description,
+      price,
+      isAvailable,
+      categoryId,
+      unit,
+      manufacturer,
+      brand,
+      sellingPrice,
+      purchaseCost,
+      tax,
+      stocksOnHand,
+      reOrderLevel,
+    };
     addProduct(newProduct);
 
     setName("");

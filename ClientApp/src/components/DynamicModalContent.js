@@ -82,6 +82,7 @@ const DynamicModalContent = ({ isOpen, toggle, product }) => {
               {showOtherValues ? product.name : product.name}
             </h2>
             <br></br>
+
             <h2>{product.description}</h2>
             <br></br>
             {showOtherValues && (
@@ -108,8 +109,16 @@ const DynamicModalContent = ({ isOpen, toggle, product }) => {
                     </ListGroupItem>
                     <ListGroupItem>Tax: {product.tax}</ListGroupItem>
                     <ListGroupItem>
-                      Stocks on Hand: {product.stocksOnHand}
+                      Stocks on Hand:{" "}
+                      {product.stocksOnHand < 10 ? (
+                        <span style={{ color: "red" }}>
+                          {product.stocksOnHand}
+                        </span>
+                      ) : (
+                        product.stocksOnHand
+                      )}
                     </ListGroupItem>
+
                     <ListGroupItem>
                       Reorder Level: {product.reOrderLevel}
                     </ListGroupItem>
